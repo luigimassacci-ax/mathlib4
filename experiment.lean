@@ -221,11 +221,7 @@ example (hExp : Summable (fun n : ℕ => ((n.factorial : ℂ)⁻¹ • ((Schwart
   have h := ciSup_le hbound
   have : ⨆ x, (↑M !)⁻¹ * ‖((⇑(derivCLM ℂ ℂ))^[M] bump) x‖ =
     (⨆ x, ‖((⇑(derivCLM ℂ ℂ))^[M] bump) x‖) / ↑M ! := by
-    conv =>
-      lhs
-      arg 1
-      intro x
-      rw [mul_comm]
-    sorry
+    rw [← Real.mul_iSup_of_nonneg (show 0 ≤(↑M !)⁻¹ by (aesop))]
+    rw [mul_comm, div_eq_mul_inv]
   rw [← this]
   exact h
